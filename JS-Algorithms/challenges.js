@@ -11,9 +11,42 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
+let hours, minutes, seconds; 
+const countLengthToString = (value) =>{
+	if(value.length < 2){
+		return value = "0" + value;
+	}
+	return value;
+}
+
+const addCeros = (value01, value02, value03) => {
+	let valueString01 = value01.toString();
+	let valueString02 = value02.toString();
+	let valueString03 = value03.toString();
+
+	valueString01 = countLengthToString(valueString01);
+	valueString02 = countLengthToString(valueString02);
+	valueString03 = countLengthToString(valueString03);
+
+	console.log(`${valueString01}:${valueString02}:${valueString03}`);
+	
+}
 
 const readableTime = (seconds) => {
 	// YOUR CODE HERE...
+	let reminder = 0;
+	if(seconds >= 0){
+		hours = Math.floor(seconds / 3600);
+		reminder = seconds % 3600;
+		minutes = Math.floor(reminder / 60); 
+		reminder = reminder % 60;
+		if(reminder < 60){
+			seconds = reminder;
+		}else{
+			seconds = Math.floor(reminder / 60);
+		}
+	}
+	addCeros(hours, minutes, seconds)
 };
 
 readableTime(458);
