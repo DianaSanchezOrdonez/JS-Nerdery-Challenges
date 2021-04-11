@@ -19,7 +19,7 @@ const countLengthToString = (value) =>{
 	return value;
 }
 
-const addCeros = (value01, value02, value03) => {
+const convertToString = (value01, value02, value03) => {
 	let valueString01 = value01.toString();
 	let valueString02 = value02.toString();
 	let valueString03 = value03.toString();
@@ -46,13 +46,13 @@ const readableTime = (seconds) => {
 			seconds = Math.floor(reminder / 60);
 		}
 	}
-	addCeros(hours, minutes, seconds)
+	return convertToString(hours, minutes, seconds)
 };
 
-readableTime(458);
-readableTime(3690);
-readableTime(7293);
-readableTime(32420);
+// readableTime(458);
+// readableTime(3690);
+// readableTime(7293);
+// readableTime(32420);
 
 /* *****
 Challenge 2
@@ -129,12 +129,25 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
 	// YOUR CODE HERE...
+	let total = 1;
+	
+	if(n === 0){
+		return total;
+	}else {
+		for(let i = 1; i <= n; i++){
+			total = total * i;
+		}
+		return total;
+	}
+
 };
 
-digitSum(10);
-digitSum(42);
-digitSum(71);
-digitSum(89);
+console.log(digitSum(10))
+console.log(digitSum(0))
+// digitSum(10);
+// digitSum(42);
+// digitSum(71);
+// digitSum(89);
 
 /* *****
 Challenge 5
