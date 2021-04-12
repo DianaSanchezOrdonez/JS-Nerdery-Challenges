@@ -11,30 +11,9 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
-let hours, minutes, seconds; 
-const countLengthToString = (value) =>{
-	if(value.length < 2){
-		return value = "0" + value;
-	}
-	return value;
-}
-
-const convertToString = (value01, value02, value03) => {
-	let valueString01 = value01.toString();
-	let valueString02 = value02.toString();
-	let valueString03 = value03.toString();
-
-	valueString01 = countLengthToString(valueString01);
-	valueString02 = countLengthToString(valueString02);
-	valueString03 = countLengthToString(valueString03);
-
-	console.log(`${valueString01}:${valueString02}:${valueString03}`);
-	
-}
-
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
-	let reminder = 0;
+	let hours, minutes, reminder = 0;
+
 	if(seconds >= 0){
 		hours = Math.floor(seconds / 3600);
 		reminder = seconds % 3600;
@@ -46,7 +25,16 @@ const readableTime = (seconds) => {
 			seconds = Math.floor(reminder / 60);
 		}
 	}
-	return convertToString(hours, minutes, seconds)
+
+	let valueString01 = hours.toString();
+	let valueString02 = minutes.toString();
+	let valueString03 = seconds.toString();
+
+	valueString01.length < 2 ? valueString01 = "0" + valueString01 : valueString01;
+	valueString02.length < 2 ? valueString02 = "0" + valueString02 : valueString02;
+	valueString03.length < 2 ? valueString03 = "0" + valueString03 : valueString03;
+
+	console.log(`${valueString01}:${valueString02}:${valueString03}`);
 };
 
 // readableTime(458);
@@ -155,14 +143,13 @@ const digitSum = (n) => {
 		factorial *= i;
 	}
 
-	console.log('result', factorial.toFixed());
-
 	while(factorial != 0){
 		lastDigit =  factorial % 10;
 		result = result + lastDigit;
 		factorial = Math.floor(factorial / 10);	
 	}
 	console.log(result);
+
 	//console.log(result);
 	//return result;
 	// factorial =  Math.floor(factorial);
@@ -193,7 +180,6 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
 	let n1 = 0, n2 = 1, nextTerm = 0, index = 0;
 
 	while(nextTerm.toString().length !== n){
