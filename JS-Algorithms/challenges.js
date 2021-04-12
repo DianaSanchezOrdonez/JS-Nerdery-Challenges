@@ -34,13 +34,13 @@ const readableTime = (seconds) => {
 	valueString02.length < 2 ? valueString02 = "0" + valueString02 : valueString02;
 	valueString03.length < 2 ? valueString03 = "0" + valueString03 : valueString03;
 
-	console.log(`${valueString01}:${valueString02}:${valueString03}`);
+	return `${valueString01}:${valueString02}:${valueString03}`
 };
 
-// readableTime(458);
-// readableTime(3690);
-// readableTime(7293);
-// readableTime(32420);
+readableTime(458);
+readableTime(3690);
+readableTime(7293);
+readableTime(32420);
 
 /* *****
 Challenge 2
@@ -67,7 +67,8 @@ const circularArray = (index) => {
 		let temp = newArray.shift();
 		newArray.push( temp )
 	}
-	console.log(newArray);
+	
+	return newArray;
 };
 
 // circularArray(2);
@@ -96,20 +97,21 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
-	let result = 0, count = 0, lastDigit = 0, nDigits = '';
+	let result = 0, count = 1, nDigits = '';
+
 	for(let i = 1; i <= number; i++){
 		result = result + Math.pow(i,i);	
 	}
-	console.log('result', result.toLocaleString());
+	
+	result = BigInt(result);
+	result = result.toString().replace('n','').split('');
 
-	while( count !== lastDigits){
-		lastDigit =  result % 10;
-		result = Math.floor(result / 10);	
+	while(count <= lastDigits){
+		nDigits = result[result.length - count] + nDigits;
 		count++;
-		nDigits = lastDigit.toString() + nDigits;
 	}
-	console.log(nDigits);
+	
+	return nDigits;
 };
 
 // ownPower(10, 3);
@@ -144,35 +146,12 @@ const digitSum = (n) => {
 	
 	factorial = BigInt(factorial);
 	
-	// while (factorial.indexOf(',') != -1){
-	// 	factorial = factorial.replace(',','');
-	// }
-
 	factorial = factorial.toString().split('')
 	factorial.reduce((accumulator, current) => {
 		return result = parseInt(accumulator) + parseInt(current);
 	})
 
-	console.log(result);
-	// while(factorial != 0){
-	// 	lastDigit =  parseInt(factorial) % 10;
-	// 	result = result + lastDigit;
-	// 	factorial = Math.floor(factorial / 10);	
-	// }
-
-	// factorial.reduce((accumulator, current) => {
-	// 	result = parseInt(accumulator) + parseInt(current)
-	// })
-
-	// console.log(result);
-
-	
-	//return result;
-	// factorial =  Math.floor(factorial);
-	// let eachDigit = factorial.toString().split('');
-	// console.log('total', factorial)
-	// eachDigit.reduce((accumulator, current) => { return result = accumulator + current})
-	// console.log(result);
+	return result;
 
 };
 
@@ -205,7 +184,7 @@ const fibIndex = (n) => {
 		index ++;
 	}
 	
-	console.log(index);
+	return index;
 };
 
 // fibIndex(3);
