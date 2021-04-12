@@ -74,13 +74,18 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+	let newArray = COUNTRY_NAMES.slice();
+	while( index-- ){
+		let temp = newArray.shift();
+		newArray.push( temp )
+	}
+	console.log(newArray);
 };
 
-circularArray(2);
-circularArray(3);
-circularArray(5);
-circularArray(9);
+// circularArray(2);
+// circularArray(3);
+// circularArray(5);
+// circularArray(9);
 
 /* *****
 Challenge 3
@@ -104,11 +109,24 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 
 const ownPower = (number, lastDigits) => {
 	// YOUR CODE HERE...
+	let result = 0, count = 0, lastDigit = 0, nDigits = '';
+	for(let i = 1; i <= number; i++){
+		result = result + Math.pow(i,i);	
+	}
+	console.log('result', result.toLocaleString());
+
+	while( count !== lastDigits){
+		lastDigit =  result % 10;
+		result = Math.floor(result / 10);	
+		count++;
+		nDigits = lastDigit.toString() + nDigits;
+	}
+	console.log(nDigits);
 };
 
-ownPower(10, 3);
-ownPower(12, 7);
-ownPower(21, 12);
+// ownPower(10, 3);
+// ownPower(12, 7);
+// ownPower(21, 12);
 
 /* *****
 Challenge 4
@@ -129,25 +147,36 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 
 const digitSum = (n) => {
 	// YOUR CODE HERE...
-	let total = 1;
-	
-	if(n === 0){
-		return total;
-	}else {
-		for(let i = 1; i <= n; i++){
-			total = total * i;
-		}
-		return total;
+	let factorial = 1;
+	let result = 0;
+	let lastDigit = 0;
+	// return total.toString().split(' ', 3);
+	for(let i = 1; i <= n; i++){
+		factorial *= i;
 	}
+
+	console.log('result', factorial.toFixed());
+
+	while(factorial != 0){
+		lastDigit =  factorial % 10;
+		result = result + lastDigit;
+		factorial = Math.floor(factorial / 10);	
+	}
+	console.log(result);
+	//console.log(result);
+	//return result;
+	// factorial =  Math.floor(factorial);
+	// let eachDigit = factorial.toString().split('');
+	// console.log('total', factorial)
+	// eachDigit.reduce((accumulator, current) => { return result = accumulator + current})
+	// console.log(result);
 
 };
 
-console.log(digitSum(10))
-console.log(digitSum(0))
-// digitSum(10);
-// digitSum(42);
-// digitSum(71);
-// digitSum(89);
+digitSum(10);
+digitSum(42);
+digitSum(71);
+digitSum(89);
 
 /* *****
 Challenge 5
@@ -165,12 +194,22 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 
 const fibIndex = (n) => {
 	// YOUR CODE HERE...
+	let n1 = 0, n2 = 1, nextTerm = 0, index = 0;
+
+	while(nextTerm.toString().length !== n){
+		n1 = n2;
+		n2 = nextTerm;
+		nextTerm = n1 + n2;
+		index ++;
+	}
+	
+	console.log(index);
 };
 
-fibIndex(3);
-fibIndex(5);
-fibIndex(12);
-fibIndex(15);
+// fibIndex(3);
+// fibIndex(5);
+// fibIndex(12);
+// fibIndex(15);
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
