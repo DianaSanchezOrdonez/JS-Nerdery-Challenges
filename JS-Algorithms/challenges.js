@@ -134,23 +134,39 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
 	let factorial = 1;
 	let result = 0;
-	let lastDigit = 0;
+	
 	// return total.toString().split(' ', 3);
-	for(let i = 1; i <= n; i++){
-		factorial *= i;
+	for(let i = n; i > 0; i--){
+		factorial *= i;	
 	}
+	
+	factorial = BigInt(factorial);
+	
+	// while (factorial.indexOf(',') != -1){
+	// 	factorial = factorial.replace(',','');
+	// }
 
-	while(factorial != 0){
-		lastDigit =  factorial % 10;
-		result = result + lastDigit;
-		factorial = Math.floor(factorial / 10);	
-	}
+	factorial = factorial.toString().split('')
+	factorial.reduce((accumulator, current) => {
+		return result = parseInt(accumulator) + parseInt(current);
+	})
+
 	console.log(result);
+	// while(factorial != 0){
+	// 	lastDigit =  parseInt(factorial) % 10;
+	// 	result = result + lastDigit;
+	// 	factorial = Math.floor(factorial / 10);	
+	// }
 
-	//console.log(result);
+	// factorial.reduce((accumulator, current) => {
+	// 	result = parseInt(accumulator) + parseInt(current)
+	// })
+
+	// console.log(result);
+
+	
 	//return result;
 	// factorial =  Math.floor(factorial);
 	// let eachDigit = factorial.toString().split('');
@@ -160,10 +176,10 @@ const digitSum = (n) => {
 
 };
 
-digitSum(10);
-digitSum(42);
-digitSum(71);
-digitSum(89);
+// digitSum(10);
+// digitSum(42);
+// digitSum(71);
+// digitSum(89);
 
 /* *****
 Challenge 5
