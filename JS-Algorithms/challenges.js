@@ -12,6 +12,24 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
+const convertTwoDigits = (stringValue) => {
+	stringValue.length < 2 ? stringValue = '0' + stringValue : stringValue;
+
+	return stringValue;
+}
+
+const printMessage = (hours, minutes, seconds) => {
+	let valueString01 = hours.toString();
+	let valueString02 = minutes.toString();
+	let valueString03 = seconds.toString();
+
+	valueString01 = convertTwoDigits(valueString01);
+	valueString02 = convertTwoDigits(valueString02);
+	valueString03 = convertTwoDigits(valueString03);
+
+	return `${valueString01}:${valueString02}:${valueString03}`;
+}
+
 const readableTime = (seconds) => {
 	let hours, minutes, reminder = 0;
 
@@ -27,15 +45,7 @@ const readableTime = (seconds) => {
 		}
 	}
 
-	let valueString01 = hours.toString();
-	let valueString02 = minutes.toString();
-	let valueString03 = seconds.toString();
-
-	valueString01.length < 2 ? valueString01 = '0' + valueString01 : valueString01;
-	valueString02.length < 2 ? valueString02 = '0' + valueString02 : valueString02;
-	valueString03.length < 2 ? valueString03 = '0' + valueString03 : valueString03;
-
-	return `${valueString01}:${valueString02}:${valueString03}`;
+	return printMessage(hours, minutes, seconds);
 };
 
 readableTime(458);
@@ -64,6 +74,7 @@ const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
 	let newArray = COUNTRY_NAMES.slice();
+
 	while( index-- ){
 		let temp = newArray.shift();
 		newArray.push( temp )
@@ -135,7 +146,6 @@ Example:
 Invoking "digitSum(10)" should return "27".
 Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
-
 const digitSum = (n) => {
 	let factorial = 1;
 	let result = 0;
@@ -192,8 +202,11 @@ fibIndex(5);
 fibIndex(12);
 fibIndex(15);
 
+exports.convertTwoDigits = convertTwoDigits;
+exports.printMessage = printMessage;
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
 exports.ownPower = ownPower;
 exports.digitSum = digitSum;
 exports.fibIndex = fibIndex;
+
