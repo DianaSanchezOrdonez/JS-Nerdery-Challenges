@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* *****
 Challenge 1
 
@@ -30,11 +31,11 @@ const readableTime = (seconds) => {
 	let valueString02 = minutes.toString();
 	let valueString03 = seconds.toString();
 
-	valueString01.length < 2 ? valueString01 = "0" + valueString01 : valueString01;
-	valueString02.length < 2 ? valueString02 = "0" + valueString02 : valueString02;
-	valueString03.length < 2 ? valueString03 = "0" + valueString03 : valueString03;
+	valueString01.length < 2 ? valueString01 = '0' + valueString01 : valueString01;
+	valueString02.length < 2 ? valueString02 = '0' + valueString02 : valueString02;
+	valueString03.length < 2 ? valueString03 = '0' + valueString03 : valueString03;
 
-	return `${valueString01}:${valueString02}:${valueString03}`
+	return `${valueString01}:${valueString02}:${valueString03}`;
 };
 
 readableTime(458);
