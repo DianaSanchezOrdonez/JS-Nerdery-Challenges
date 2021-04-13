@@ -8,8 +8,8 @@ TO-DO:
 */
 
 const result = document.querySelector('#display');
-
 const calculatorButtons = document.querySelectorAll('button');
+result.innerText = '';
 
 let numberA;
 let numberB;
