@@ -139,7 +139,6 @@ const digitSum = (n) => {
 	let factorial = 1;
 	let result = 0;
 	
-	// return total.toString().split(' ', 3);
 	for(let i = n; i > 0; i--){
 		factorial *= i;	
 	}
