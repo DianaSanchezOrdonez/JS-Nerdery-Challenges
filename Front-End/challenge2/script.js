@@ -51,7 +51,6 @@ calculatorButtons.forEach((button) => {
 		button.addEventListener('click', () => {
 			numberA = result.innerText;
 			operator = button.innerText;
-			//   result.innerText += operator;
 			clean();
 		});
 	} else {
