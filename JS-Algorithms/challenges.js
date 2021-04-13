@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* *****
 Challenge 1
 
@@ -11,9 +12,30 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
-
 const readableTime = (seconds) => {
-	// YOUR CODE HERE...
+	let hours, minutes, reminder = 0;
+
+	if(seconds >= 0){
+		hours = Math.floor(seconds / 3600);
+		reminder = seconds % 3600;
+		minutes = Math.floor(reminder / 60); 
+		reminder = reminder % 60;
+		if(reminder < 60){
+			seconds = reminder;
+		}else{
+			seconds = Math.floor(reminder / 60);
+		}
+	}
+
+	let valueString01 = hours.toString();
+	let valueString02 = minutes.toString();
+	let valueString03 = seconds.toString();
+
+	valueString01.length < 2 ? valueString01 = '0' + valueString01 : valueString01;
+	valueString02.length < 2 ? valueString02 = '0' + valueString02 : valueString02;
+	valueString03.length < 2 ? valueString03 = '0' + valueString03 : valueString03;
+
+	return `${valueString01}:${valueString02}:${valueString03}`;
 };
 
 readableTime(458);
@@ -41,7 +63,13 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
 const circularArray = (index) => {
-	// YOUR CODE HERE...
+	let newArray = COUNTRY_NAMES.slice();
+	while( index-- ){
+		let temp = newArray.shift();
+		newArray.push( temp )
+	}
+	
+	return newArray;
 };
 
 circularArray(2);
@@ -70,7 +98,21 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	// YOUR CODE HERE...
+	let result = 0, count = 1, nDigits = '';
+
+	for(let i = 1; i <= number; i++){
+		result = result + Math.pow(i,i);	
+	}
+	
+	result = BigInt(result);
+	result = result.toString().replace('n','').split('');
+
+	while(count <= lastDigits){
+		nDigits = result[result.length - count] + nDigits;
+		count++;
+	}
+	
+	return nDigits;
 };
 
 ownPower(10, 3);
@@ -95,7 +137,22 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const digitSum = (n) => {
-	// YOUR CODE HERE...
+	let factorial = 1;
+	let result = 0;
+	
+	for(let i = n; i > 0; i--){
+		factorial *= i;	
+	}
+	
+	factorial = BigInt(factorial);
+	
+	factorial = factorial.toString().split('')
+	factorial.reduce((accumulator, current) => {
+		return result = parseInt(accumulator) + parseInt(current);
+	})
+
+	return result;
+
 };
 
 digitSum(10);
@@ -118,7 +175,16 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-	// YOUR CODE HERE...
+	let n1 = 0, n2 = 1, nextTerm = 0, index = 0;
+
+	while(nextTerm.toString().length !== n){
+		n1 = n2;
+		n2 = nextTerm;
+		nextTerm = n1 + n2;
+		index ++;
+	}
+	
+	return index;
 };
 
 fibIndex(3);
