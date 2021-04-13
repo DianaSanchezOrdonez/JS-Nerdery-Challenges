@@ -71,10 +71,10 @@ const circularArray = (index) => {
 	return newArray;
 };
 
-// circularArray(2);
-// circularArray(3);
-// circularArray(5);
-// circularArray(9);
+circularArray(2);
+circularArray(3);
+circularArray(5);
+circularArray(9);
 
 /* *****
 Challenge 3
@@ -114,9 +114,9 @@ const ownPower = (number, lastDigits) => {
 	return nDigits;
 };
 
-// ownPower(10, 3);
-// ownPower(12, 7);
-// ownPower(21, 12);
+ownPower(10, 3);
+ownPower(12, 7);
+ownPower(21, 12);
 
 /* *****
 Challenge 4
@@ -154,10 +154,10 @@ const digitSum = (n) => {
 
 };
 
-// digitSum(10);
-// digitSum(42);
-// digitSum(71);
-// digitSum(89);
+digitSum(10);
+digitSum(42);
+digitSum(71);
+digitSum(89);
 
 /* *****
 Challenge 5
@@ -186,10 +186,10 @@ const fibIndex = (n) => {
 	return index;
 };
 
-// fibIndex(3);
-// fibIndex(5);
-// fibIndex(12);
-// fibIndex(15);
+fibIndex(3);
+fibIndex(5);
+fibIndex(12);
+fibIndex(15);
 
 exports.readableTime = readableTime;
 exports.circularArray = circularArray;
