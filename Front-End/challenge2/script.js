@@ -54,7 +54,7 @@ function calculator(){
     }else{
         res = parseFloat(numberA) / parseFloat(numberB);
     }
-
+    
     reset();
     result.innerText = res;
 }
