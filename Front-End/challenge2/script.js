@@ -1,4 +1,3 @@
-/* eslint-disable */
 /*
 TO-DO:
 
@@ -7,23 +6,25 @@ TO-DO:
 
 */
 
-const result = document.querySelector('#display');
+const display = document.querySelector('#display');
 const calculatorButtons = document.querySelectorAll('button');
-result.innerText = '';
+display.innerText = 0;
 
 let numberA;
 let numberB;
 let operator;
+let result = '';
 
 function clean() {
-	result.innerText = '';
+	result = '';
 }
 
 function reset() {
-	result.innerText = '';
+	display.innerText = 0;
 	numberA = 0;
 	numberB = 0;
 	operator = '';
+	result = '';
 }
 
 function calculator() {
@@ -35,27 +36,34 @@ function calculator() {
 	} else if (operator === 'X') {
 		res = parseFloat(numberA) * parseFloat(numberB);
 	} else {
-      res = parseFloat(numberA) / parseFloat(numberB);
-    }
+		res = parseFloat(numberA) / parseFloat(numberB);
+	}
 
-    reset();
-    result.innerText = res;
-  }
+	reset();
+	display.innerText = res;
+	result = res;
+}
 
 calculatorButtons.forEach((button) => {
 	if (!button.classList.value) {
 		button.addEventListener('click', () => {
-			result.innerText += button.innerText;
+			display.innerText += button.innerText;
+			display.innerText = display.innerText.replace('0', '');
+			result += button.innerText;
 		});
-	} else if (button.id !== 'equals') {
+	} else if (button.id !== 'equals' && button.id !== 'clean') {
 		button.addEventListener('click', () => {
-			numberA = result.innerText;
+			numberA = result;
 			operator = button.innerText;
+			display.innerText += operator;
 			clean();
 		});
+	} else if (button.id === 'clean') {
+		button.addEventListener('click', () => reset());
 	} else {
 		button.addEventListener('click', () => {
-			numberB = result.innerText;
+			numberB = result;
+			display.innerText += numberB;
 			calculator();
 		});
 	}
