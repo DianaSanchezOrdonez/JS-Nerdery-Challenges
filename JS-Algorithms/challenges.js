@@ -12,35 +12,27 @@ Example:
 
 Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 ***** */
-const convertTwoDigits = (stringValue) => {
-	stringValue.length < 2 ? stringValue = '0' + stringValue : stringValue;
-
-	return stringValue;
+const convertTwoDigits = (number) => {
+	return number >= 10 ? `${number}` : `0${number}`;
 }
 
+/*-- Feedback → avoid using too many variables */
 const printMessage = (hours, minutes, seconds) => {
-	let valueString01 = hours.toString();
-	let valueString02 = minutes.toString();
-	let valueString03 = seconds.toString();
-
-	valueString01 = convertTwoDigits(valueString01);
-	valueString02 = convertTwoDigits(valueString02);
-	valueString03 = convertTwoDigits(valueString03);
-
-	return `${valueString01}:${valueString02}:${valueString03}`;
+	return `${convertTwoDigits(hours)}:${convertTwoDigits(minutes)}:${convertTwoDigits(seconds)}`;
 }
 
+/*-- Feedback → identation to more readability the code */
 const readableTime = (seconds) => {
 	let hours, minutes, reminder = 0;
 
-	if(seconds >= 0){
+	if (seconds >= 0) {
 		hours = Math.floor(seconds / 3600);
 		reminder = seconds % 3600;
 		minutes = Math.floor(reminder / 60); 
 		reminder = reminder % 60;
-		if(reminder < 60){
+		if (reminder < 60) {
 			seconds = reminder;
-		}else{
+		} else {
 			seconds = Math.floor(reminder / 60);
 		}
 	}
@@ -72,15 +64,21 @@ Invoking "circularArray(2)" should return "["Island", "Japan", "Israel", "German
 
 const COUNTRY_NAMES = ['Germany', 'Norway', 'Island', 'Japan', 'Israel'];
 
-const circularArray = (index) => {
-	let newArray = COUNTRY_NAMES.slice();
+/*-- Feedback → avoid the excessive use of loops */
 
-	while( index-- ){
-		let temp = newArray.shift();
-		newArray.push( temp )
+const circularArray = (index) => {
+	//let newArray = COUNTRY_NAMES.slice();
+	// while( index-- ){
+	// 	let temp = newArray.shift();
+	// 	newArray.push( temp )
+	// }
+	const position = index % COUNTRY_NAMES.length
+
+	if (position === 0) {
+		return COUNTRY_NAMES
 	}
-	
-	return newArray;
+
+  	return [...COUNTRY_NAMES.slice(position), ...COUNTRY_NAMES.slice(0, position)]
 };
 
 circularArray(2);
@@ -109,21 +107,14 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-	let result = 0, count = 1, nDigits = '';
+	let result = 0;
 
-	for(let i = 1; i <= number; i++){
+	for(let i = 1; i <= number; i++) {
 		result = result + Math.pow(i,i);	
 	}
 	
-	result = BigInt(result);
-	result = result.toString().replace('n','').split('');
-
-	while(count <= lastDigits){
-		nDigits = result[result.length - count] + nDigits;
-		count++;
-	}
+	return result = BigInt(result).toString().slice(-lastDigits);
 	
-	return nDigits;
 };
 
 ownPower(10, 3);
@@ -148,20 +139,16 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 const digitSum = (n) => {
 	let factorial = 1;
-	let result = 0;
 	
-	for(let i = n; i > 0; i--){
+	for (let i = n; i > 0; i--) {
 		factorial *= i;	
 	}
 	
-	factorial = BigInt(factorial);
+	factorial = BigInt(factorial).toString().split('');
 	
-	factorial = factorial.toString().split('')
-	factorial.reduce((accumulator, current) => {
-		return result = parseInt(accumulator) + parseInt(current);
+	return factorial.reduce((accumulator, current) => {
+		return parseInt(accumulator) + parseInt(current);
 	})
-
-	return result;
 
 };
 
@@ -187,7 +174,7 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 const fibIndex = (n) => {
 	let n1 = 0, n2 = 1, nextTerm = 0, index = 0;
 
-	while(nextTerm.toString().length !== n){
+	while(nextTerm.toString().length !== n) {
 		n1 = n2;
 		n2 = nextTerm;
 		nextTerm = n1 + n2;
