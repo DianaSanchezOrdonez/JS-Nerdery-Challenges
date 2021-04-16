@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 TO-DO:
 
@@ -8,63 +9,85 @@ TO-DO:
 
 const display = document.querySelector('#display');
 const calculatorButtons = document.querySelectorAll('button');
-display.innerText = 0;
 
-let numberA;
-let numberB;
-let operator;
-let result = '';
+const calculator = {
+	displayValue: '0',
+	firstOperand: null,
+	waitingSecondOperand: false,
+	operator: null,
+};
 
-function clean() {
-	result = '';
-}
-
-function reset() {
-	display.innerText = 0;
-	numberA = 0;
-	numberB = 0;
-	operator = '';
-	result = '';
-}
-
-function calculator() {
-	let res;
+function calculate(firstOperand, secondOperand, operator) {
 	if (operator === '+') {
-		res = parseFloat(numberA) + parseFloat(numberB);
-	} else if (operator === '-') {
-		res = parseFloat(numberA) - parseFloat(numberB);
-	} else if (operator === 'X') {
-		res = parseFloat(numberA) * parseFloat(numberB);
-	} else {
-		res = parseFloat(numberA) / parseFloat(numberB);
-	}
-
-	reset();
-	display.innerText = res;
-	result = res;
+    	return firstOperand + secondOperand;
+  	} else if (operator === '-') {
+    	return firstOperand - secondOperand;
+  	} else if (operator === 'X') {
+    	return firstOperand * secondOperand;
+  	} else if (operator === '/') {
+    	return firstOperand / secondOperand;
+  	}
+  return secondOperand;
 }
+
+function handleOperator(nextOperator) {
+	const { firstOperand, displayValue, operator } = calculator;
+	const inputValue = parseFloat(displayValue);
+
+	if (operator && calculator.waitingSecondOperand) {
+		calculator.operator = nextOperator;
+    	return;
+ 	};	
+
+	if (firstOperand == null && !isNaN(inputValue)) {
+		calculator.firstOperand = inputValue;
+	
+	} else if (operator) {
+		const result = calculate(firstOperand, inputValue, operator);
+
+		calculator.displayValue = result;
+		calculator.firstOperand = result;
+  	}
+
+	calculator.waitingSecondOperand = true;
+	calculator.operator = nextOperator;
+}
+
+function digitEachNumber(digit) {
+	const { displayValue, waitingSecondOperand } = calculator;
+
+	if (waitingSecondOperand === true) {
+		calculator.displayValue = digit;
+		calculator.waitingSecondOperand = false;
+  	} else {
+    	calculator.displayValue = displayValue === '0' ? digit : displayValue + digit;
+  	}
+}
+
+function resetCalculator() {
+	calculator.displayValue = '0';
+	calculator.firstOperand = null;
+	calculator.waitingSecondOperand = false;
+	calculator.operator = null;
+}
+
+function updateDisplay() {
+	display.innerText = calculator.displayValue;
+}
+
+updateDisplay();
 
 calculatorButtons.forEach((button) => {
-	if (!button.classList.value) {
-		button.addEventListener('click', () => {
-			display.innerText += button.innerText;
-			display.innerText = display.innerText.replace('0', '');
-			result += button.innerText;
-		});
-	} else if (button.id !== 'equals' && button.id !== 'clean') {
-		button.addEventListener('click', () => {
-			numberA = result;
-			operator = button.innerText;
-			display.innerText += operator;
-			clean();
-		});
-	} else if (button.id === 'clean') {
-		button.addEventListener('click', () => reset());
-	} else {
-		button.addEventListener('click', () => {
-			numberB = result;
-			display.innerText += numberB;
-			calculator();
-		});
-	}
+	button.addEventListener('click', () => {
+		const { id, innerText } = button;
+		
+		if ( id === 'add' || id === 'subtrack' || id === 'multiplication' || id === 'division' || id === 'equals') {
+			handleOperator(innerText);
+		} else if ( id === 'clean' ){
+			resetCalculator();
+		} else {
+			digitEachNumber(innerText);
+		}
+		updateDisplay();
+	});
 });
